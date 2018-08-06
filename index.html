@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript">
+  	
+  </script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".draggable" ).draggable();
+    $( ".draggable" ).resizable();
+  } );
+  </script>
+
+	<meta charset="utf-8">
+	<title>Beta 1.0</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/demo.css" type="text/css" rel="stylesheet">
+	<link href="css/jquery.gridster.css" type="text/css" rel="stylesheet">
+	<link href="css/aquavar.css" type="text/css" rel="stylesheet">
+	<link href="css/leaflet.css" type="text/css" rel="stylesheet">
+	<link href="css/sidebar-menu.css" type="text/css" rel="stylesheet">
+	<link href="css/pointMenu.css" type="text/css" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
+
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
+
+	<!--<script src="js/fr.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/fr.js"></script>-->	
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/ncaFonctions.js"></script>
+	<script src="js/leaflet.js"></script>
+	<script src="js/sidebar-menu.js"></script>
+	<script src="js/jquery.gridster.min.js"></script>
+	<script src="js/plotly-latest.min.js"></script>
+	<script src="js/pointMenu.js"></script>	
+	<script src="js/point-sidebar-menu.js"></script>
+	<script src="js/aquavar.js"></script>
+	<script src="js/require.js"></script>
+
+	<!-- <script type="text/javascript" src="bootstrap.min.js"></script> -->
+
+</head>
+
+<body>
+	<div id="header">
+		<div class="floatleft">
+			<p>AquaVar (version beta 1.0)</p>
+			<img src="images/logos.jpg" class="logo">
+		</div>			
+		<div class="alignright">
+			<span>
+				<span class="aqv-date" id="dateGMT">
+					<img src="images/spinner.gif">
+				</span>
+				<span class="aqv-date" id="dateUTC">
+					<img src="images/spinner.gif">
+				</span>
+				Marc Gaetano
+				<img src="images/user-24.png">
+			</span>
+			<img id="menu-button" src="images/list-view-24.png">
+		</div>
+	</div>
+
+	<div style="position:absolute; z-index: 1" class="draggable" onmousedown="firstLayout(this)" >
+		<iframe width="100%" height="90%"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://sig.nicecotedazur.org/appli/?site=signcajs_aquavar"
+		 onload="trigger();">
+		</iframe>
+		<div id = "Imgs">
+			<img id="image" onclick = "removeWidget(this)" src="images/close.png">
+			<img id="plus" onclick="enlargeWidget(this)" src="images/plus.png" alt="">
+			<img id="minus" onclick="restoreWidget(this)" src="images/minus.png" alt="">
+		</div>
+	</div>
+
+	<section class="animate-menu animate-menu-right">
+		<ul class="sidebar-menu">
+			<li>
+				<a href="#">
+					<span>Maps</span>
+				</a>
+				<ul class="sidebar-submenu">
+					<li>
+						<a id="aqv-newSIGMap" href="#">SIGMap</a>
+					</li>
+					<li>
+						<a id="aqv-newRadar" href="#">Radareu</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span>Plots</span>
+					<i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="sidebar-submenu" style="display: none;">
+					<li>
+						<a id="aqv-timeSeriesPlot" href="#">Time series</a>
+					</li>
+					<li>
+						<a id="aqv-liveDataPlot" href="#">Live plot</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span>Rearrange</span>
+					<i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="sidebar-submenu">
+					<li>
+						<a id="aqv-arrange1x1" href="#">Single</a>
+					</li>					
+					<li>
+						<a id="aqv-arrange1x2" href="#">Large</a>
+					</li>
+					<li>
+						<a id="aqv-arrange2x3" href="#">Big</a>
+					</li>
+					<li>
+						<a id="aqv-arrange3x3" href="#">Meduim</a>
+					</li>
+					<li>
+						<a id="aqv-arrange3x4" href="#">Small</a>
+					</li>	
+					<li>
+						<a id="aqv-arrange4x5" href="#">Tiny</a>
+					</li>				
+				</ul>
+			</li>
+			<li>			
+				<a href="#">
+					<span>Logout</span>
+				</a>
+				<ul class="sidebar-submenu">
+					<li>
+						<a href="#">Confirmer ?</a>
+					</li>
+					<li>
+						<a href="#">Annuler</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+
+	<div class = "menu">
+		<ul class="in">
+			<li style="list-style: none; margin-top:20px">
+				Period:
+				<input type="date" name="from_date" /> to
+				<input type="date" name="to_date" />
+			</li>
+			<li style="list-style: none">
+				Data Type:
+				<input type="radio" name="type" id="type_type1"> <label for="type_type1">Water level</label>
+				<input type="radio" name="type" id="type_type2"> <label for="type_type2">Water depth</label>
+				<input type="radio" name="type" id="type_type3"> <label for="type_type3">Discharge</label>
+				<input type="radio" name="type" id="type_type4"> <label for="type_type4">Velocity</label>
+				<input type="radio" name="type" id="type_type5"> <label for="type_type5">Concentration</label>
+			</li>
+			<li style="list-style: none">
+				Chart type:
+				<input type="radio" name="chart_type" id="chart_type1"> <label for="chart_type1">Time series</label>
+				<input type="radio" name="chart_type" id="chart_type2"> <label for="chart_type2">Line charts</label>
+				<input type="radio" name="chart_type" id="chart_type3"> <label for="chart_type3">Histogram</label>
+				<input type="radio" name="chart_type" id="chart_type4"> <label for="chart_type4">Pie chart</label>
+			</li>
+			<li style="list-style: none">
+				Widget:
+				<select id="plotSelect">
+					<option>new</option>
+				</select>
+			</li>
+			<li style="list-style: none">
+				<button id="menu-sub" onclick="menuOk()">ok</button>
+			</li>
+		</ul>
+	</div>
+
+	<div id="bkground"></div>
+</body>
+</html>
